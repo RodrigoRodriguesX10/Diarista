@@ -1,0 +1,15 @@
+﻿@model Diarista.Models.User
+
+@{ 
+    ViewBag.Title = "Novo Usuário";
+}
+
+<form autocomplete="off" method="post" action="@Url.Action("NewUser", "Authentication")">
+    <div class="panel panel-bordered">
+        <header class="panel-heading">
+            <h3>
+                Cadastre um novo usuário
+            </h3>
+        </header>
+    </div>
+</form>
