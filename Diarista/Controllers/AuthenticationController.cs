@@ -15,8 +15,10 @@ namespace Diarista.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Login()
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -75,8 +77,10 @@ namespace Diarista.Controllers
             return RedirectToAction("Login");
         }
 
-        public ActionResult NewUser()
+        public ActionResult CreateUser()
         {
+
+
             return View(new User());
         }
     }

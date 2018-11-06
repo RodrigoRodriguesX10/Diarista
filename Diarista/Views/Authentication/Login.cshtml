@@ -4,35 +4,47 @@
     ViewBag.Title = "Login";
 }
 
-<form method="post" action="@Url.Action("Login")">
-
-    <input type="hidden" name="remember" value="false" />
-        <div class="container">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="sr-only" for="user">Nome do Usuário</label>
-                    <input type="text" class="form-control" id="username" name="user" value=""
-                           placeholder="Nome do Usuário de Acesso" autocomplete="off" required>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <h2>Painel de acesso</h2>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <form method="post" action="@Url.Action("Login")">
+                <input type="hidden" name="remember" value="false" />
+                <div class="form-group">
+                    <label class="control-label" for="user">
+                        Nome do Usuário
+                    </label>
+                        <input type="text" class="form-control" id="username" name="user" value=""
+                               placeholder="Nome do Usuário de Acesso" autocomplete="off" required>
                 </div>
-                <div class="form-group col-md-6">
-                    <label class="sr-only" for="password">Senha</label>
-                    <input type="password" class="form-control" id="password" name="password" value=""
-                           placeholder="Senha de Acesso" autocomplete="off" required>
+                <div class="form-group">
+                    <label class="" for="password">
+                        Senha
+                    </label>
+                        <input type="password" class="form-control" id="password" name="password" value=""
+                               placeholder="Senha de Acesso" autocomplete="off" required>
                 </div>
-                <div class="form-group clearfix col-md-6">
+                <div class="form-group">
                     <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
                         <input type="checkbox" id="remember" name="remember" checked>
                         <label for="inputCheckbox">Lembrar me</label>
                     </div>
-                    <a class="pull-right" href="forgot-password.html">Esqueceu a senha?</a>
+                    <label>
+                        <a class="text-right" href="forgot-password.html">Esqueceu a senha?</a>
+                    </label>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Login</button>
+                </div>
+            </form>
         </div>
-</form>
+    </div>
+</div>
 
 <script>
-        submitForm = function () {
-            $('form').submit();
-        }
+    submitForm = function () {
+        $('form').submit();
+    }
 </script>
