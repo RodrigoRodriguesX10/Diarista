@@ -15,7 +15,6 @@ namespace Diarista.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -30,7 +29,7 @@ namespace Diarista.Controllers
         /// <returns></returns>
         // GET: Authentication
         [HttpPost]
-        public ActionResult Login(string user, string password)
+        public ActionResult Login(string user, string password, string ReturnURL)
         {
             try
             {
@@ -47,16 +46,21 @@ namespace Diarista.Controllers
                     Session.Add("usuário", usuario);
                     FormsAuthentication.SetAuthCookie(usuario.UserName, true);
 
-                    if (usuario.Perfil == "Diarista")
-                        return View("diarista", usuario);
+                    if (!string.IsNullOrWhiteSpace(ReturnURL))
+                        return Redirect(ReturnURL);
                     else
-                        return View("cliente", usuario);
+                    {
+                        if (usuario.Perfil == "Diarista")
+                            return View();
+                        else
+                            return View();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ViewBag.Erro = ex;
-                return RedirectToAction("Login");
+                return RedirectToAction(nameof(Login));
             }
         }
 
@@ -64,7 +68,7 @@ namespace Diarista.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Logoff()
+        public ActionResult Logoff(string ReturnURL)
         {
             // Perform Logoff operation
             Session.RemoveAll();
@@ -74,14 +78,7 @@ namespace Diarista.Controllers
             FormsAuthentication.SignOut();
 
             // Redirect
-            return RedirectToAction("Login");
-        }
-
-        public ActionResult CreateUser()
-        {
-
-
-            return View(new User());
+            return RedirectToAction(nameof(Login), new { ReturnURL });
         }
     }
 }
