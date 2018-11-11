@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diarista.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +12,17 @@ namespace Diarista
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            try
+            {
+                var db = new DatabaseContext();
+                AreaRegistration.RegisterAllAreas();
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                //throw;
+            }
         }
     }
 }

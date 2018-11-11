@@ -1,8 +1,52 @@
-﻿@model Diarista.Models.User
+﻿@model IEnumerable<Diarista.Models.Servico>
 
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "Index";
 }
+@Html.ActionLink("Logout", "LogOff", "Authentication", routeValues: null, htmlAttributes: new { @class = "pull-right" })
 
-<h2>Index</h2>
+<h2>Cliente - Index</h2>
 
+<p>
+    @Html.ActionLink("Solicitar Servico", "Cadastrar", "Servico")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Diarista")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPublicacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataContratacao)
+        </th>
+        <th>
+            @Html.DisplayName("Status do Serviço")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(item.Diarista != null ? item.Diarista.Nome : "-")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPublicacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataContratacao)
+            </td>
+            <td>
+                @Html.DisplayName(item.Status.ToString())
+            </td>
+            <td>
+                @Html.ActionLink("Avaliar", "Avaliar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning", disabled = item.DataContratacao > DateTime.Now }) |
+                @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id } , htmlAttributes: new { @class = "btn btn-danger", disabled = item.DataContratacao <= DateTime.Now })
+            </td>
+        </tr>
+    }
+
+</table>
