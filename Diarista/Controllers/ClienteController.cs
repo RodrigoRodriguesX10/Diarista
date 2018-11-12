@@ -32,7 +32,7 @@ namespace Diarista.Controllers
             {
                 return RedirectToAction("Index");
             }
-            servico.Status = Classifiers.StatusServico.Aceito;
+            servico.Status = Classifiers.StatusServico.Cancelado;
             db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -40,7 +40,17 @@ namespace Diarista.Controllers
         [Autorizar]
         public ActionResult Avaliar(int id)
         {
-            return View();
+            return View(new Servico { Id = id });
+        }
+        [Autorizar]
+        [HttpPost]
+        public ActionResult Avaliar(Servico s)
+        {
+            var servico = db.Servicos.Find(s.Id);
+            servico.Avaliacao = s.Avaliacao;
+            db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

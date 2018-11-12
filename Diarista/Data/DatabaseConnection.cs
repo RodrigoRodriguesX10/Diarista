@@ -9,8 +9,8 @@ namespace Diarista.Data
         public DatabaseContext() :
            base("LocalDbConnection")
         {
-            Database.Delete();
-            Database.CreateIfNotExists();
+            //Database.Delete();
+            //Database.CreateIfNotExists();
             Configuration.AutoDetectChangesEnabled = false;
             Database.SetInitializer<DatabaseContext>(null);
             this.Configuration.LazyLoadingEnabled = false;
@@ -37,7 +37,7 @@ namespace Diarista.Data
 
             modelBuilder.Entity<Servico>()
                 .HasRequired(s => s.Casa)
-                .WithRequiredPrincipal();
+                .WithMany();
 
             modelBuilder.Entity<Servico>()
                 .HasOptional(s => s.Diarista)

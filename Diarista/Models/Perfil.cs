@@ -6,6 +6,11 @@ namespace Diarista.Models
 {
     public class Perfil
     {
+        public Perfil()
+        {
+            ServicosFeitos = new List<Servico>();
+            ServicosSolicitados = new List<Servico>();
+        }
         [Key]
         public string Cpf { get; set; }
         public string Nome { get; set; }

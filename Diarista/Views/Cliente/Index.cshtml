@@ -16,6 +16,9 @@
             @Html.DisplayName("Diarista")
         </th>
         <th>
+            @Html.DisplayName("Avaliação")
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.DataPublicacao)
         </th>
         <th>
@@ -29,24 +32,32 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayName(item.Diarista != null ? item.Diarista.Nome : "-")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataPublicacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataContratacao)
-            </td>
-            <td>
-                @Html.DisplayName(item.Status.ToString())
-            </td>
-            <td>
-                @Html.ActionLink("Avaliar", "Avaliar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning", disabled = item.DataContratacao > DateTime.Now }) |
-                @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id } , htmlAttributes: new { @class = "btn btn-danger", disabled = item.DataContratacao <= DateTime.Now })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayName(item.Diarista != null ? item.Diarista.Nome : "-")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Avaliacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPublicacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataContratacao)
+        </td>
+        <td>
+            @Html.DisplayName(item.Status.ToString())
+        </td>
+        <td>
+            @Html.ActionLink("Avaliar", "Avaliar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning " + (item.DataContratacao > DateTime.Now ? "disabled" : "") }) |
+            @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+        </td>
+    </tr>
     }
 
 </table>
+<style>
+    a.disabled {
+        pointer-events:none;
+    }
+</style>
