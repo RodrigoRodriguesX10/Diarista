@@ -29,7 +29,7 @@ namespace Diarista.Services
             using (var client = new SmtpClient
             {
                 Host = "smtp.gmail.com",
-                Port = 587,
+                Port = 465,
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
@@ -46,12 +46,40 @@ namespace Diarista.Services
                 }
             }
         }
-
-        public class EmailConfiguracao
+        public void NotificarCliente(Servico servico)
         {
-            public string From { get; set; }
-            public string Name { get; set; }
-            public string Password { get; set; }
+            var body = $"<h2>Olá, {servico.Contratante.Nome}, </h2><p>Você recebeu uma resposta de {servico.Diarista.Nome}, acesse o sistema para visualizar.</p>";
+
+            var mm = new MailMessage(Email.From, servico.Contratante.Usuario.Email, $"Nova proposta de {servico.Diarista.Nome}", body)
+            {
+                IsBodyHtml = true
+            };
+
+            using (var client = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 465,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(Email.From, Email.Password)
+            })
+            {
+                try
+                {
+                    client.Send(mm);
+                }
+                catch (Exception ex)
+                {
+                    //throw;
+                }
+            }
         }
+    }
+    public class EmailConfiguracao
+    {
+        public string From { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
     }
 }
