@@ -34,6 +34,8 @@ namespace Diarista.Controllers
             servico.Status = Classifiers.StatusServico.Recusado;
             db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == s.Id);
+            //ns.NotificarCliente(s);
             return RedirectToAction("Index");
         }
         public ActionResult Aceitar(int id)
@@ -46,6 +48,8 @@ namespace Diarista.Controllers
             servico.Status = Classifiers.StatusServico.Aceito;
             db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+            var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == s.Id);
+            //ns.NotificarCliente(s);
             return RedirectToAction("Index");
         }
     }
