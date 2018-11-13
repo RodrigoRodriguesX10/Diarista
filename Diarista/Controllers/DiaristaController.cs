@@ -3,12 +3,14 @@ using Diarista.Models;
 using System.Web.Mvc;
 using System.Linq;
 using Diarista.Authorization;
+using Diarista.Services;
 
 namespace Diarista.Controllers
 {
     public class DiaristaController : Controller
     {
         private readonly DatabaseContext db = new DatabaseContext();
+        private readonly NotificacaoService ns = new NotificacaoService();
 
         public DiaristaController()
         {
@@ -34,8 +36,8 @@ namespace Diarista.Controllers
             servico.Status = Classifiers.StatusServico.Recusado;
             db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == s.Id);
-            //ns.NotificarCliente(s);
+            var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == id);
+            ns.NotificarCliente(s);
             return RedirectToAction("Index");
         }
         public ActionResult Aceitar(int id)
@@ -48,8 +50,8 @@ namespace Diarista.Controllers
             servico.Status = Classifiers.StatusServico.Aceito;
             db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == s.Id);
-            //ns.NotificarCliente(s);
+            var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == id);
+            ns.NotificarCliente(s);
             return RedirectToAction("Index");
         }
     }

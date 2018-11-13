@@ -10,7 +10,7 @@ namespace Diarista.Data
            base("DatabaseConnection")
         {
             //Database.Delete();
-            //Database.CreateIfNotExists();
+            Database.CreateIfNotExists();
             Configuration.AutoDetectChangesEnabled = false;
             Database.SetInitializer<DatabaseContext>(null);
             this.Configuration.LazyLoadingEnabled = false;

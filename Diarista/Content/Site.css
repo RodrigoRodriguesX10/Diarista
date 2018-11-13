@@ -19,11 +19,13 @@ button{
 
 body {
     padding: 0;
+}
+.bg-imagem {
     background-image: url(/Content/imagem-banner.jpg);
     background-size: cover;
+    height: 100vh;
     background-position: center center;
 }
-
 
 .menu-center {
     width: 100%;
@@ -46,4 +48,10 @@ body {
 
 #TipoUsuario.form-control{
     margin: 0 auto;
+}
+
+.color-text{
+    color: #ffffff;
+    float: right;
+    margin-right: 10px; 
 }
