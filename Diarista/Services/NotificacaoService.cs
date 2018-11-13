@@ -13,9 +13,9 @@ namespace Diarista.Services
     {
         private static EmailConfiguracao Email = new EmailConfiguracao
         {
-            From = "barbosamiranda41851@gmail.com",
-            Name = "Daniel Miranda",
-            Password = "Miranda159357"
+            From = "email@gmail.com",
+            Name = "User Name",
+            Password = "<your_password>"
         };
         public void NotificarDiarista(Servico servico)
         {

@@ -47,7 +47,7 @@ namespace Diarista.Controllers
                     Session.Add("Usuario", usuario);
                     FormsAuthentication.SetAuthCookie(usuario.Email, true);
 
-                    if (!string.IsNullOrWhiteSpace(ReturnURL))
+                    if (!string.IsNullOrEmpty(ReturnURL))
                         return Redirect(ReturnURL);
                     else
                     {
