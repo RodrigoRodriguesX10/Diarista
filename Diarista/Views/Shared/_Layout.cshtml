@@ -7,14 +7,24 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+    @RenderBody()
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-</body>
-</html>
+    <script type="text/javascript" src="~/Scripts/jquery.maskedinput.min.js"></script>
+    
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(".data").mask("99/99/9999");
+            $(".hora").mask("99:99");
+            $(".tel").mask("(99) 99999-999?9");
+            $(".cep").mask("99999-999");
+            $(".cpf").mask("999.999.999-99");
+            $(".cnpj").mask("99.999.999/9999-99");
+        });
+    </script>
+</body >
+</html >

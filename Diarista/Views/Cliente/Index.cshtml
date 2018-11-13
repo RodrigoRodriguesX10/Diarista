@@ -3,61 +3,68 @@
 @{
     ViewBag.Title = "Index";
 }
-@Html.ActionLink("Logout", "LogOff", "Authentication", routeValues: null, htmlAttributes: new { @class = "pull-right" })
 
-<h2>Cliente - Index</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Cliente</h2>
+        </div>
+        <div class="col-md-12">
+            <p>
+                @Html.ActionLink("Logout", "LogOff", "Authentication", routeValues: null, htmlAttributes: new { @class = "color-text btn btn-danger" })
+                @Html.ActionLink("Solicitar Servico", "Cadastrar", "Servico", routeValues: null, htmlAttributes: new { @class = "color-text btn btn-primary" })
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Diarista")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Avaliação")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataPublicacao)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataContratacao)
+                    </th>
+                    <th>
+                        @Html.DisplayName("Status do Serviço")
+                    </th>
+                    <th></th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Solicitar Servico", "Cadastrar", "Servico")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Diarista")
-        </th>
-        <th>
-            @Html.DisplayName("Avaliação")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataPublicacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataContratacao)
-        </th>
-        <th>
-            @Html.DisplayName("Status do Serviço")
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayName(item.Diarista != null ? item.Diarista.Nome : "-")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Avaliacao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataPublicacao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataContratacao)
+                        </td>
+                        <td>
+                            @Html.DisplayName(item.Status.ToString())
+                        </td>
+                        <td>
+                            @Html.ActionLink("Avaliar", "Avaliar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning " + (item.DataContratacao > DateTime.Now ? "disabled" : "") }) |
+                            @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
 
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayName(item.Diarista != null ? item.Diarista.Nome : "-")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Avaliacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataPublicacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataContratacao)
-        </td>
-        <td>
-            @Html.DisplayName(item.Status.ToString())
-        </td>
-        <td>
-            @Html.ActionLink("Avaliar", "Avaliar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-warning " + (item.DataContratacao > DateTime.Now ? "disabled" : "") }) |
-            @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-    }
-
-</table>
+            </table>
+        </div>
+    </div>
+</div>
 <style>
     a.disabled {
-        pointer-events:none;
+        pointer-events: none;
     }
 </style>

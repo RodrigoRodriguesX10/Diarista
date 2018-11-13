@@ -3,11 +3,10 @@
 @{
     ViewBag.Title = "Login";
 }
-
-<div class="container container-bg">
-    <div>
+<div class="bg-imagem">
+    <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-lg-offset-4">
+            <div class="col-md-4 col-md-offset-4">
                 <form method="post" class="menu-center" action="@Url.Action("Login")">
                     <h2>Acesso Restrito</h2>
                     <input type="hidden" name="remember" value="false" />
@@ -31,24 +30,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
-                                    <input type="checkbox" id="remember" name="remember" checked>
-                                    <label for="inputCheckbox">Lembrar me</label>
-                                </div>
+                        <div class="form-group">
+                            <div class="checkbox-custom checkbox-inline checkbox-primary">
+                                <input type="checkbox" id="remember" name="remember" checked>
+                                <label for="inputCheckbox">Lembrar me</label>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <label>
-                                <a class="text-right" href="forgot-password.html">Esqueceu a senha?</a>
-                            </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary form-control" style="width:100%;">Login</button>
+                                <button type="submit" class="btn btn-success form-control" style="width:100%;">Login</button>
                             </div>
                         </div>
                         <div class="col-lg-6">

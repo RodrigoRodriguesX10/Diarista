@@ -46,7 +46,7 @@ namespace Diarista.Controllers
                 db.Servicos.Add(s);
                 db.SaveChanges();
                 s = db.Servicos.Include("Diarista.Usuario").Include("Casa").Include("Contratante").First(e => e.Id == s.Id);
-                //ns.NotificarDiarista(s);
+                ns.NotificarDiarista(s);
                 return RedirectToAction("Index", "Cliente");
             }
             return View();

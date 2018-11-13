@@ -11,6 +11,7 @@ namespace Diarista.Controllers
     {
         private readonly DatabaseContext db = new DatabaseContext();
         private readonly NotificacaoService ns = new NotificacaoService();
+
         public DiaristaController()
         {
         }
@@ -50,7 +51,7 @@ namespace Diarista.Controllers
             db.Entry(servico).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             var s = db.Servicos.Include("Contratante.Usuario").Include("Diarista").First(e => e.Id == id);
-            //ns.NotificarCliente(s);
+            ns.NotificarCliente(s);
             return RedirectToAction("Index");
         }
     }
