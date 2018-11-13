@@ -1,9 +1,9 @@
-﻿using Diarista.Models;
+﻿using Diarista.Authorization;
+using Diarista.Data;
+using Diarista.Models;
+using Diarista.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -29,13 +29,14 @@ namespace Diarista.Controllers
         /// <returns></returns>
         // GET: Authentication
         [HttpPost]
-        public ActionResult Login(string user, string password, string ReturnURL)
+        public ActionResult Login(string email, string password, string ReturnURL)
         {
             try
             {
-                using (var db = new DatabaseConnection())
+                using (var db = new DatabaseContext())
                 {
-                    var usuario = db.Users.Where(u => u.UserName == user).ToList().FirstOrDefault();
+                    var users = db.Users;
+                    var usuario = users.Include("Perfil").Where(u => u.Email == email).FirstOrDefault();
 
                     if (usuario == null)
                         throw new Exception("Usuário Inválido");
@@ -43,17 +44,17 @@ namespace Diarista.Controllers
                     if (usuario.Password != password)
                         throw new Exception("Senha Incorreta");
 
-                    Session.Add("usuário", usuario);
-                    FormsAuthentication.SetAuthCookie(usuario.UserName, true);
+                    Session.Add("Usuario", usuario);
+                    FormsAuthentication.SetAuthCookie(usuario.Email, true);
 
                     if (!string.IsNullOrWhiteSpace(ReturnURL))
                         return Redirect(ReturnURL);
                     else
                     {
-                        if (usuario.Perfil == "Diarista")
-                            return View();
+                        if (usuario.Perfil.TipoUsuario == Classifiers.TipoUsuario.Diarista)
+                            return RedirectToAction("Index", "Diarista");
                         else
-                            return View();
+                            return RedirectToAction("Index", "Cliente");
                     }
                 }
             }
@@ -62,6 +63,28 @@ namespace Diarista.Controllers
                 ViewBag.Erro = ex;
                 return RedirectToAction(nameof(Login));
             }
+        }
+
+        public ActionResult Cadastrar()
+        {
+            if (Session["Usuario"] == null)
+                return View();
+            return HttpNotFound();
+        }
+        [HttpPost]
+        public ActionResult Cadastrar(CadastroUsuario cadastro)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = (User)cadastro;
+                using (var db = new DatabaseContext())
+                {
+                    var u = db.Users.Add(user);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Login");
+            }
+            return View();
         }
 
         /// <summary>
@@ -79,6 +102,12 @@ namespace Diarista.Controllers
 
             // Redirect
             return RedirectToAction(nameof(Login), new { ReturnURL });
+        }
+        [Autorizar]
+        public ActionResult TesteLogado()
+        {
+            var user = (User)Session["Usuario"];
+            return View(user);
         }
     }
 }

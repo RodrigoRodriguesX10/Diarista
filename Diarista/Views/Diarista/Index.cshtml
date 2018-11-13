@@ -1,8 +1,54 @@
-﻿@model Diarista.Models.User
+﻿@model IEnumerable<Diarista.Models.Servico>
 
 @{
     ViewBag.Title = "Index";
 }
+@Html.ActionLink("Logout", "LogOff", "Authentication", routeValues: null, htmlAttributes: new { @class = "pull-right" })
 
-<h2>Index</h2>
+<h2>Diarista - Index</h2>
 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Contratante")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPublicacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataContratacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayName("Status do Serviço")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(item.Contratante != null ? item.Contratante.Nome : "-")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPublicacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataContratacao)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayName(item.Status.ToString())
+            </td>
+            <td>
+                @Html.ActionLink("Aceitar", "Aceitar", new { id = item.Id }, htmlAttributes: new { @class="btn btn-success" }) |
+                @Html.ActionLink("Recusar", "Recusar", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+</table>
