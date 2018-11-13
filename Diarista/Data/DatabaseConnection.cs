@@ -7,7 +7,7 @@ namespace Diarista.Data
     public class DatabaseContext : DbContext
     {
         public DatabaseContext() :
-           base("LocalDbConnection")
+           base("DatabaseConnection")
         {
             //Database.Delete();
             //Database.CreateIfNotExists();

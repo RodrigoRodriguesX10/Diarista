@@ -17,33 +17,23 @@ button{
     max-width: 280px;
 }
 
-body{
+body {
     padding: 0;
-}
-
-.container-bg {
     background-image: url(/Content/imagem-banner.jpg);
-    min-width: 1920px;
-    height: 100vh;
-    margin: 0;
-    margin-right: 0px;
-    margin-left: 0px;
-    right: 0;
-    position: absolute;
     background-size: cover;
     background-position: center center;
 }
+
 
 .menu-center {
     width: 100%;
     height: auto;
     padding: 10px;
-    top: 0;
-    position: absolute;
     background-color: #ffffff;
     border: 2px solid #ea60e3;
     border-radius: 15px;
     text-align: center;
+    margin-top: 150px;
 }
 
 .menu-center h2{
@@ -51,5 +41,9 @@ body{
 }
 
 .menu-center input{
+    margin: 0 auto;
+}
+
+#TipoUsuario.form-control{
     margin: 0 auto;
 }
